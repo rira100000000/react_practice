@@ -2,16 +2,18 @@ import React from "react";
 import NewButton from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
+//localStorage.clear();
 
 const Todo = () => {
+  const ids = Object.keys(localStorage)
+    .filter((id) => id !== "id")
+    .map((id) => {
+      return parseInt(id);
+    })
+    .sort((a, b) => a - b);
+
   const [contents, setContents] = React.useState(() => {
     let result = {};
-    const ids = Object.keys(localStorage)
-      .filter((id) => id !== "id")
-      .map((id) => {
-        return parseInt(id);
-      })
-      .sort((a, b) => a - b);
 
     ids.forEach((id) => {
       result[id] = localStorage.getItem(id);
@@ -20,14 +22,11 @@ const Todo = () => {
     return result;
   });
 
-  const ids = Object.keys(contents);
-
   const calcNewId = () => {
     if (ids.length === 0) {
       return 0;
     } else {
-      const parsedIds = ids.map((id) => parseInt(id));
-      return Math.max(...parsedIds) + 1;
+      return Math.max(...ids) + 1;
     }
   };
 
@@ -63,7 +62,6 @@ const Todo = () => {
             setContents={setContents}
             setContent={setContent}
             setShowEditForm={setShowEditForm}
-            editingId={editingId}
             setEditingId={setEditingId}
           />
         </div>

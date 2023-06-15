@@ -6,7 +6,6 @@ const ShowButton = (props) => {
     props.setEditingId(props.id);
     props.setContent(props.contents[props.id]);
   };
-
   return (
     <div>
       <button
@@ -14,7 +13,7 @@ const ShowButton = (props) => {
         className={"ShowButton"}
         onClick={handleClick}
         style={
-          props.editingId.toString() === props.id
+          props.editingId === props.id
             ? { color: "black", textDecoration: "none" }
             : { color: "blue" }
         }
