@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+textarea {
+  width: 95%;
+  height: 200px;
+}
+.titleArea {
+  width: auto;
+  margin: 10px;
+  background-color: white;
+}
+
+.contentArea {
+  width: 70%;
+  margin: 0 0 0 auto;
+  background-color: white;
+}
+
+.outerLine {
+  margin: 0 30px;
+  width: 80%;
+  height: 300px;
+  background-color: ghostwhite;
+  color: darkgray;
+}
+
+.innerLine {
+  margin: 0 30px;
+  display: flex;
+  width: 90%;
+  background-color: white;
+  color: darkgray;
+}
+
+.buttons {
+  display: flex;
+}
+
+.ShowButton {
+  border: none;
+  background-color: white;
+  text-decoration: underline blue;
+}
+
+.NewButton {
+  color: blue;
+  border: none;
+  background-color: white;
+}
+
+.submit {
+  width: 70%;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.delete {
+  border-radius: 5px;
+}
