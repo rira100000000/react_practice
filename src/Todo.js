@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NewButton from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
 
+localStorage.clear();
 const Todo = () => {
   const ids = Object.keys(localStorage)
     .filter((id) => id !== "id")
@@ -11,7 +12,7 @@ const Todo = () => {
     })
     .sort((a, b) => a - b);
 
-  const [contents, setContents] = React.useState(() => {
+  const [contents, setContents] = useState(() => {
     let result = {};
 
     ids.forEach((id) => {
@@ -21,18 +22,21 @@ const Todo = () => {
     return result;
   });
 
-  const calcNewId = () => {
-    if (ids.length === 0) {
-      return 0;
-    } else {
-      return Math.max(...ids) + 1;
-    }
-  };
+  const [newId, setNewId] = useState("");
+  useEffect(() => {
+    const calcNewId = () => {
+      if (ids.length === 0) {
+        return 0;
+      } else {
+        return Math.max(...ids) + 1;
+      }
+    };
+    setNewId(calcNewId());
+  }, [ids]);
 
-  const [newId, setNewId] = React.useState(calcNewId());
-  const [showEditForm, setShowEditForm] = React.useState(false);
-  const [editingId, setEditingId] = React.useState("");
-  const [content, setContent] = React.useState(contents[editingId]);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [editingId, setEditingId] = useState("");
+  const [content, setContent] = useState(contents[editingId]);
 
   return (
     <div className="outerLine">
@@ -56,7 +60,6 @@ const Todo = () => {
           })}
           <NewButton
             newId={newId}
-            setNewId={setNewId}
             contents={contents}
             setContents={setContents}
             setContent={setContent}

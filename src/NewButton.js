@@ -6,7 +6,6 @@ const NewButton = (props) => {
         localStorage.setItem(props.newId, "新規メモ");
         props.setContents({ ...props.contents, [props.newId]: "新規メモ" });
         props.setEditingId(props.newId);
-        props.setNewId(props.newId + 1);
         props.setShowEditForm(true);
         props.setContent("新規メモ");
       }}
