@@ -1,14 +1,18 @@
 import React from "react";
 import DeleteButton from "./DeleteButton";
+import useSaveButton from "./useSaveButton";
+
 const EditForm = (props) => {
   const handleChange = (event) => {
+    event.preventDefault();
+
     props.setContent(event.target.value);
   };
+  const saveData = useSaveButton(props, props.editingId, props.content);
 
-  const handleSubmit = (event, id) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    localStorage.setItem(id, props.content);
-    props.setContents({ ...props.contents, [id]: props.content });
+    saveData();
   };
 
   return (

@@ -4,7 +4,8 @@ const DeleteButton = (props) => {
       <button
         className="delete"
         id={"delete" + props.editingId}
-        onClick={() => {
+        onClick={(event) => {
+          event.preventDefault();
           localStorage.removeItem(props.editingId);
 
           let updatedContents = { ...props.contents };
