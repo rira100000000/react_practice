@@ -4,10 +4,8 @@ import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
 
 const Todo = () => {
-  let todos = JSON.parse(localStorage.getItem("todos"));
-  if (todos === null) {
-    todos = {};
-  }
+  const todos = JSON.parse(localStorage.getItem("todos")) || {};
+
   const ids = Object.keys(todos).map((id) => {
     return parseInt(id);
   });
@@ -17,11 +15,7 @@ const Todo = () => {
 
   useEffect(() => {
     const calcNewId = () => {
-      if (ids.length === 0) {
-        return 0;
-      } else {
-        return Math.max(...ids) + 1;
-      }
+      return ids.length === 0 ? 0 : Math.max(...ids) + 1;
     };
     setNewId(calcNewId());
   }, [ids]);
