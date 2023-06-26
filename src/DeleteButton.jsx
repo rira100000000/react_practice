@@ -6,11 +6,10 @@ const DeleteButton = (props) => {
         id={"delete" + props.editingId}
         onClick={(event) => {
           event.preventDefault();
-          localStorage.removeItem(props.editingId);
-
           let updatedContents = { ...props.contents };
           delete updatedContents[props.editingId];
 
+          localStorage.setItem("todos", JSON.stringify(updatedContents));
           props.setContents(updatedContents);
           props.setShowEditForm(false);
           props.setEditingId("");

@@ -4,24 +4,17 @@ import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
 
 const Todo = () => {
-  const ids = Object.keys(localStorage)
-    .filter((id) => id !== "id")
-    .map((id) => {
-      return parseInt(id);
-    })
-    .sort((a, b) => a - b);
-
-  const [contents, setContents] = useState(() => {
-    let result = {};
-
-    ids.forEach((id) => {
-      result[id] = localStorage.getItem(id);
-    });
-
-    return result;
+  let todos = JSON.parse(localStorage.getItem("todos"));
+  if (todos === null) {
+    todos = {};
+  }
+  const ids = Object.keys(todos).map((id) => {
+    return parseInt(id);
   });
+  const [contents, setContents] = useState(todos);
 
   const [newId, setNewId] = useState("");
+
   useEffect(() => {
     const calcNewId = () => {
       if (ids.length === 0) {

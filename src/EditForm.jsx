@@ -8,7 +8,12 @@ const EditForm = (props) => {
 
     props.setContent(event.target.value);
   };
-  const saveData = useSaveButton(props, props.editingId, props.content);
+  const saveData = useSaveButton(
+    props,
+    props.editingId,
+    props.content,
+    props.contents
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
