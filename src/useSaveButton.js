@@ -1,17 +1,19 @@
 import React from "react";
+import useLocalStorage from "./useLocalStorage";
 
 const useSaveButton = (props, id, content, contents) => {
   const { setContent, setContents, setEditingId, setShowEditForm } = props;
 
+  const [syncContentsToLocalStorage] = useLocalStorage(contents, setContents);
+
   const saveData = React.useCallback(() => {
     setContent(content);
-    localStorage.setItem(
-      "todos",
-      JSON.stringify({ ...contents, [id]: content })
-    );
-    setContents((prevContents) => ({ ...prevContents, [id]: content }));
+    const updatedContents = { ...contents, [id]: content };
+    setContents(updatedContents);
     setEditingId(id);
     setShowEditForm(true);
+    syncContentsToLocalStorage(updatedContents);
+    console.log(updatedContents);
   }, [
     setContent,
     setContents,
@@ -20,6 +22,7 @@ const useSaveButton = (props, id, content, contents) => {
     id,
     content,
     contents,
+    syncContentsToLocalStorage,
   ]);
 
   return saveData;

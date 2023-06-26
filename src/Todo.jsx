@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NewButton from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
+localStorage.clear();
 
 const Todo = () => {
   const [contents, setContents] = useState({});
