@@ -4,14 +4,17 @@ import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
 
 const Todo = () => {
-  const todos = JSON.parse(localStorage.getItem("todos")) || {};
+  const [contents, setContents] = useState({});
+  const [newId, setNewId] = useState("");
 
-  const ids = Object.keys(todos).map((id) => {
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem("todos")) || {};
+    setContents(todos);
+  }, []);
+
+  const ids = Object.keys(contents).map((id) => {
     return parseInt(id);
   });
-  const [contents, setContents] = useState(todos);
-
-  const [newId, setNewId] = useState("");
 
   useEffect(() => {
     const calcNewId = () => {
