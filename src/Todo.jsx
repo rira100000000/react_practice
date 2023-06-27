@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import NewButton, { calcNewId } from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";

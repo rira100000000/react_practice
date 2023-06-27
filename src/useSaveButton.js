@@ -1,4 +1,4 @@
-import React from "react";
+import { useCallback } from "react";
 import useLocalStorage from "./useLocalStorage";
 
 const useSaveButton = (props, id, content, contents) => {
@@ -6,7 +6,7 @@ const useSaveButton = (props, id, content, contents) => {
 
   const [syncContentsToLocalStorage] = useLocalStorage(contents, setContents);
 
-  const saveData = React.useCallback(() => {
+  const saveData = useCallback(() => {
     setContent(content);
     const updatedContents = { ...contents, [id]: content };
     setContents(updatedContents);

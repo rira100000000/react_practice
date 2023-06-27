@@ -1,5 +1,3 @@
-import React from "react";
-
 const ShowButton = (props) => {
   const handleClick = () => {
     props.handleClickShowButton(props.id);
