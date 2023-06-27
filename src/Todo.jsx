@@ -22,6 +22,12 @@ const Todo = () => {
     setContents(todos);
   }, []);
 
+  const handleClickShowButton = (id) => {
+    setShowEditForm(true);
+    setEditingId(id);
+    setContent(contents[id]);
+  };
+
   const saveNewTodo = useSaveButton(
     { setContent, setContents, setEditingId, setShowEditForm },
     calcNewId(ids),
@@ -54,13 +60,10 @@ const Todo = () => {
             return (
               <div key={`ShowButton_${id}`}>
                 <ShowButton
+                  handleClickShowButton={handleClickShowButton}
                   id={id}
                   contents={contents}
-                  setContents={setContents}
-                  setShowEditForm={setShowEditForm}
                   editingId={editingId}
-                  setEditingId={setEditingId}
-                  setContent={setContent}
                 />
               </div>
             );

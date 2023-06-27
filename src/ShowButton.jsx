@@ -2,9 +2,7 @@ import React from "react";
 
 const ShowButton = (props) => {
   const handleClick = () => {
-    props.setShowEditForm(true);
-    props.setEditingId(props.id);
-    props.setContent(props.contents[props.id]);
+    props.handleClickShowButton(props.id);
   };
   return (
     <div>
