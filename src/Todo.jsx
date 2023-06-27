@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import NewButton from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
-localStorage.clear();
 
 const Todo = () => {
   const [contents, setContents] = useState({});
-  const [newId, setNewId] = useState("");
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos")) || {};
@@ -16,13 +14,6 @@ const Todo = () => {
   const ids = Object.keys(contents).map((id) => {
     return parseInt(id);
   });
-
-  useEffect(() => {
-    const calcNewId = () => {
-      return ids.length === 0 ? 0 : Math.max(...ids) + 1;
-    };
-    setNewId(calcNewId());
-  }, [ids]);
 
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
@@ -49,7 +40,7 @@ const Todo = () => {
             );
           })}
           <NewButton
-            newId={newId}
+            ids={ids}
             contents={contents}
             setContents={setContents}
             setContent={setContent}
