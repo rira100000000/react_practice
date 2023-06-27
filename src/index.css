@@ -7,11 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 textarea {
   width: 95%;
   height: 200px;
@@ -52,20 +47,24 @@ textarea {
   border: none;
   background-color: white;
   text-decoration: underline blue;
+  cursor: pointer;
 }
 
 .NewButton {
   color: blue;
   border: none;
   background-color: white;
+  cursor: pointer;
 }
 
 .submit {
   width: 70%;
   margin-right: 20px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .delete {
   border-radius: 5px;
+  cursor: pointer;
 }
