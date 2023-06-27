@@ -7,14 +7,9 @@ import useSaveButton from "./useSaveButton";
 
 const Todo = () => {
   const [contents, setContents] = useState({});
-
-  const ids = Object.keys(contents).map((id) => {
-    return parseInt(id);
-  });
-
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
-  const [content, setContent] = useState(contents[editingId]);
+  const [content, setContent] = useState("");
   const [syncContentsToLocalStorage] = useLocalStorage(contents, setContents);
 
   useEffect(() => {
@@ -27,6 +22,10 @@ const Todo = () => {
     setEditingId(id);
     setContent(contents[id]);
   };
+
+  const ids = Object.keys(contents).map((id) => {
+    return parseInt(id);
+  });
 
   const saveNewTodo = useSaveButton(
     { setContent, setContents, setEditingId, setShowEditForm },
