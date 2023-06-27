@@ -26,7 +26,7 @@ const Todo = () => {
         <div className="titleArea">
           {ids.map((id) => {
             return (
-              <div key={"ShowButton_" + id}>
+              <div key={`ShowButton_${id}`}>
                 <ShowButton
                   id={id}
                   contents={contents}

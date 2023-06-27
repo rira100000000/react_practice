@@ -9,7 +9,7 @@ const ShowButton = (props) => {
   return (
     <div>
       <button
-        id={"show_" + props.id}
+        id={`show_${props.id}`}
         className={"ShowButton"}
         onClick={handleClick}
         style={

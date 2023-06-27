@@ -9,7 +9,7 @@ const DeleteButton = (props) => {
     <div>
       <button
         className="delete"
-        id={"delete" + props.editingId}
+        id={`delete_${props.editingId}`}
         onClick={(event) => {
           event.preventDefault();
           let updatedContents = { ...props.contents };
