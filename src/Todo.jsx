@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import NewButton from "./NewButton";
+import NewButton, { calcNewId } from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
+import useLocalStorage from "./useLocalStorage";
+import useSaveButton from "./useSaveButton";
 
 const Todo = () => {
   const [contents, setContents] = useState({});
-
-  useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem("todos")) || {};
-    setContents(todos);
-  }, []);
 
   const ids = Object.keys(contents).map((id) => {
     return parseInt(id);
@@ -18,6 +15,35 @@ const Todo = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
   const [content, setContent] = useState(contents[editingId]);
+  const [syncContentsToLocalStorage] = useLocalStorage(contents, setContents);
+
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem("todos")) || {};
+    setContents(todos);
+  }, []);
+
+  const saveNewTodo = useSaveButton(
+    { setContent, setContents, setEditingId, setShowEditForm },
+    calcNewId(ids),
+    "新規メモ",
+    contents
+  );
+
+  const updateTodo = useSaveButton(
+    { setContent, setContents, setEditingId, setShowEditForm },
+    editingId,
+    content,
+    contents
+  );
+
+  const deleteTodo = (id) => {
+    let updatedContents = { ...contents };
+    delete updatedContents[id];
+    setContents(updatedContents);
+    syncContentsToLocalStorage(updatedContents);
+    setShowEditForm(false);
+    setEditingId("");
+  };
 
   return (
     <div className="outerLine">
@@ -39,26 +65,18 @@ const Todo = () => {
               </div>
             );
           })}
-          <NewButton
-            ids={ids}
-            contents={contents}
-            setContents={setContents}
-            setContent={setContent}
-            setShowEditForm={setShowEditForm}
-            setEditingId={setEditingId}
-          />
+          <NewButton saveNewTodo={saveNewTodo} />
         </div>
 
         <div className="contentArea">
           {showEditForm && (
             <EditForm
               editingId={editingId}
+              deleteTodo={deleteTodo}
+              updateTodo={updateTodo}
               setEditingId={setEditingId}
-              contents={contents}
-              setContents={setContents}
               content={content}
               setContent={setContent}
-              setShowEditForm={setShowEditForm}
             />
           )}
         </div>

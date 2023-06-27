@@ -1,6 +1,5 @@
 import React from "react";
 import DeleteButton from "./DeleteButton";
-import useSaveButton from "./useSaveButton";
 
 const EditForm = (props) => {
   const handleChange = (event) => {
@@ -8,16 +7,9 @@ const EditForm = (props) => {
 
     props.setContent(event.target.value);
   };
-  const saveData = useSaveButton(
-    props,
-    props.editingId,
-    props.content,
-    props.contents
-  );
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    saveData();
+    props.updateTodo();
   };
 
   return (
@@ -28,11 +20,8 @@ const EditForm = (props) => {
           <input type="submit" value="編集" className="submit" />
           {
             <DeleteButton
+              deleteTodo={props.deleteTodo}
               editingId={props.editingId}
-              contents={props.contents}
-              setContents={props.setContents}
-              setShowEditForm={props.setShowEditForm}
-              setEditingId={props.setEditingId}
             />
           }
         </div>

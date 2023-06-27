@@ -1,10 +1,4 @@
-import useLocalStorage from "./useLocalStorage";
-
 const DeleteButton = (props) => {
-  const [syncContentsToLocalStorage] = useLocalStorage(
-    props.contents,
-    props.setContents
-  );
   return (
     <div>
       <button
@@ -12,12 +6,7 @@ const DeleteButton = (props) => {
         id={`delete_${props.editingId}`}
         onClick={(event) => {
           event.preventDefault();
-          let updatedContents = { ...props.contents };
-          delete updatedContents[props.editingId];
-          props.setContents(updatedContents);
-          syncContentsToLocalStorage(updatedContents);
-          props.setShowEditForm(false);
-          props.setEditingId("");
+          props.deleteTodo(props.editingId);
         }}
       >
         削除
