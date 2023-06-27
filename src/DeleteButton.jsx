@@ -1,4 +1,10 @@
+import useLocalStorage from "./useLocalStorage";
+
 const DeleteButton = (props) => {
+  const [syncContentsToLocalStorage] = useLocalStorage(
+    props.contents,
+    props.setContents
+  );
   return (
     <div>
       <button
@@ -8,9 +14,8 @@ const DeleteButton = (props) => {
           event.preventDefault();
           let updatedContents = { ...props.contents };
           delete updatedContents[props.editingId];
-
-          localStorage.setItem("todos", JSON.stringify(updatedContents));
           props.setContents(updatedContents);
+          syncContentsToLocalStorage(updatedContents);
           props.setShowEditForm(false);
           props.setEditingId("");
         }}
