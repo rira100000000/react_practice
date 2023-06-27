@@ -13,7 +13,6 @@ const useSaveButton = (props, id, content, contents) => {
     setEditingId(id);
     setShowEditForm(true);
     syncContentsToLocalStorage(updatedContents);
-    console.log(updatedContents);
   }, [
     setContent,
     setContents,
