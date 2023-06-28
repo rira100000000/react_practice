@@ -1,6 +1,6 @@
 const NewButton = (props) => {
   return (
-    <button className="NewButton" onClick={props.saveNewTodo}>
+    <button className="NewButton" onClick={props.handleClickNewButton}>
       +
     </button>
   );

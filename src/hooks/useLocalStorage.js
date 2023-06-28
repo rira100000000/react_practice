@@ -1,19 +1,17 @@
 import { useCallback } from "react";
 
-const useLocalStorage = (contents, setContents) => {
+const useLocalStorage = () => {
   const getLocalStorageContents = useCallback(() => {
     const storedContents = localStorage.getItem("todos");
     if (storedContents) {
-      setContents(JSON.parse(contents));
-      return contents;
+      return JSON.parse(storedContents);
     } else {
-      return {};
+      return [];
     }
-  }, [contents, setContents]);
+  }, []);
 
   const syncContentsToLocalStorage = (newContents) => {
     localStorage.setItem("todos", JSON.stringify(newContents));
-    setContents(newContents);
   };
 
   return { syncContentsToLocalStorage, getLocalStorageContents };

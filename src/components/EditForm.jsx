@@ -7,7 +7,7 @@ const EditForm = (props) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.updateTodo();
+    props.handleClickUpdateButton();
   };
 
   return (
@@ -18,7 +18,7 @@ const EditForm = (props) => {
           <input type="submit" value="編集" className="submit" />
           {
             <DeleteButton
-              deleteTodo={props.deleteTodo}
+              handleClickDeleteButton={props.handleClickDeleteButton}
               editingId={props.editingId}
             />
           }

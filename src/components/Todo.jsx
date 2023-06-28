@@ -1,23 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import NewButton, { calcNewId } from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
-import useLocalStorage from "../hooks/useLocalStorage";
-import useSaveButton from "../hooks/useSaveButton";
+import useContents from "../hooks/useContents";
 
-//localStorage.clear();
+localStorage.clear();
 
 const Todo = () => {
-  const [contents, setContents] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
   const [text, setText] = useState("");
-  const { syncContentsToLocalStorage } = useLocalStorage(contents, setContents);
-
-  useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem("todos")) || [];
-    setContents(todos);
-  }, []);
+  const { contents, addContent, updateContent, deleteContent } = useContents();
 
   const handleClickShowButton = (content) => {
     setShowEditForm(true);
@@ -25,27 +18,20 @@ const Todo = () => {
     setText(content["text"]);
   };
 
-  const saveNewTodo = useSaveButton(
-    { setText, setContents, setEditingId, setShowEditForm },
-    calcNewId(contents),
-    "新規メモ",
-    contents
-  );
+  const handleClickNewButton = () => {
+    const newId = calcNewId(contents);
+    addContent(newId);
+    setEditingId(newId);
+    setText("新規メモ");
+    setShowEditForm(true);
+  };
 
-  const updateTodo = useSaveButton(
-    { setText, setContents, setEditingId, setShowEditForm },
-    editingId,
-    text,
-    contents
-  );
+  const handleClickUpdateButton = () => {
+    updateContent(editingId, text);
+  };
 
-  const deleteTodo = (id) => {
-    const updatedContents = contents.filter((content) => {
-      return content["id"] !== id;
-    });
-
-    setContents(updatedContents);
-    syncContentsToLocalStorage(updatedContents);
+  const handleClickDeleteButton = () => {
+    deleteContent(editingId);
     setShowEditForm(false);
     setEditingId("");
   };
@@ -66,16 +52,15 @@ const Todo = () => {
               </div>
             );
           })}
-          <NewButton saveNewTodo={saveNewTodo} />
+          <NewButton handleClickNewButton={handleClickNewButton} />
         </div>
 
         <div className="contentArea">
           {showEditForm && (
             <EditForm
               editingId={editingId}
-              deleteTodo={deleteTodo}
-              updateTodo={updateTodo}
-              setEditingId={setEditingId}
+              handleClickDeleteButton={handleClickDeleteButton}
+              handleClickUpdateButton={handleClickUpdateButton}
               content={text}
               setText={setText}
             />

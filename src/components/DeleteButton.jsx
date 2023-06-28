@@ -6,7 +6,7 @@ const DeleteButton = (props) => {
         id={`delete_${props.editingId}`}
         onClick={(event) => {
           event.preventDefault();
-          props.deleteTodo(props.editingId);
+          props.handleClickDeleteButton(props.editingId);
         }}
       >
         削除
