@@ -12,7 +12,7 @@ const EditForm = (props) => {
 
   return (
     <div>
-      <form onSubmit={(event) => handleSubmit(event, props.editingId)}>
+      <form onSubmit={(event) => handleSubmit(event)}>
         <textarea type="text" value={props.text} onChange={handleChange} />
         <div className="buttons">
           <input type="submit" value="編集" className="submit" />
