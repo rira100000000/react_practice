@@ -3,7 +3,7 @@ import DeleteButton from "./DeleteButton";
 const EditForm = (props) => {
   const handleChange = (event) => {
     event.preventDefault();
-    props.setContent(event.target.value);
+    props.setText(event.target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();

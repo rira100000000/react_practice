@@ -6,7 +6,11 @@ const NewButton = (props) => {
   );
 };
 
-export const calcNewId = (ids) => {
+export const calcNewId = (contents) => {
+  const ids = contents.map((content) => {
+    return parseInt(content["id"]);
+  });
+
   return ids.length === 0 ? 0 : Math.max(...ids) + 1;
 };
 

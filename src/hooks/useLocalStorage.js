@@ -4,7 +4,7 @@ const useLocalStorage = (contents, setContents) => {
   const getLocalStorageContents = useCallback(() => {
     const storedContents = localStorage.getItem("todos");
     if (storedContents) {
-      setContents(JSON.parse(storedContents));
+      setContents(JSON.parse(contents));
       return contents;
     } else {
       return {};

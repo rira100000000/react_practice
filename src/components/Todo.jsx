@@ -5,45 +5,45 @@ import EditForm from "./EditForm";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useSaveButton from "../hooks/useSaveButton";
 
+//localStorage.clear();
+
 const Todo = () => {
-  const [contents, setContents] = useState({});
+  const [contents, setContents] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
-  const [content, setContent] = useState("");
+  const [text, setText] = useState("");
   const [syncContentsToLocalStorage] = useLocalStorage(contents, setContents);
 
   useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem("todos")) || {};
+    const todos = JSON.parse(localStorage.getItem("todos")) || [];
     setContents(todos);
   }, []);
 
-  const handleClickShowButton = (id) => {
+  const handleClickShowButton = (content) => {
     setShowEditForm(true);
-    setEditingId(id);
-    setContent(contents[id]);
+    setEditingId(content["id"]);
+    setText(content["text"]);
   };
 
-  const ids = Object.keys(contents).map((id) => {
-    return parseInt(id);
-  });
-
   const saveNewTodo = useSaveButton(
-    { setContent, setContents, setEditingId, setShowEditForm },
-    calcNewId(ids),
+    { setText, setContents, setEditingId, setShowEditForm },
+    calcNewId(contents),
     "新規メモ",
     contents
   );
 
   const updateTodo = useSaveButton(
-    { setContent, setContents, setEditingId, setShowEditForm },
+    { setText, setContents, setEditingId, setShowEditForm },
     editingId,
-    content,
+    text,
     contents
   );
 
   const deleteTodo = (id) => {
-    let updatedContents = { ...contents };
-    delete updatedContents[id];
+    const updatedContents = contents.filter((content) => {
+      return content["id"] !== id;
+    });
+
     setContents(updatedContents);
     syncContentsToLocalStorage(updatedContents);
     setShowEditForm(false);
@@ -55,13 +55,12 @@ const Todo = () => {
       <h3>{showEditForm ? "編集" : "一覧"}</h3>
       <div className="innerLine">
         <div className="titleArea">
-          {ids.map((id) => {
+          {contents.map((content) => {
             return (
-              <div key={`ShowButton_${id}`}>
+              <div key={`ShowButton_${content["id"]}`}>
                 <ShowButton
                   handleClickShowButton={handleClickShowButton}
-                  id={id}
-                  contents={contents}
+                  content={content}
                   editingId={editingId}
                 />
               </div>
@@ -77,8 +76,8 @@ const Todo = () => {
               deleteTodo={deleteTodo}
               updateTodo={updateTodo}
               setEditingId={setEditingId}
-              content={content}
-              setContent={setContent}
+              content={text}
+              setText={setText}
             />
           )}
         </div>
