@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import NewButton, { calcNewId } from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
-import useLocalStorage from "./useLocalStorage";
-import useSaveButton from "./useSaveButton";
+import useLocalStorage from "../hooks/useLocalStorage";
+import useSaveButton from "../hooks/useSaveButton";
 
 const Todo = () => {
   const [contents, setContents] = useState({});
