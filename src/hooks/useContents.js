@@ -11,15 +11,8 @@ const useContents = () => {
     setContents(todos);
   }, [getLocalStorageContents]);
 
-  const initialContents = (newId) => {
-    return {
-      id: newId,
-      text: "新規メモ",
-    };
-  };
-
-  const addContent = (newId) => {
-    const updatedContents = [...contents, initialContents(newId)];
+  const addContent = (newId, initialText) => {
+    const updatedContents = [...contents, { id: newId, text: initialText }];
     setContents(updatedContents);
     syncContentsToLocalStorage(updatedContents);
   };
