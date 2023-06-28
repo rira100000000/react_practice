@@ -4,8 +4,6 @@ import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
 import useContents from "../hooks/useContents";
 
-localStorage.clear();
-
 const Todo = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
@@ -21,9 +19,9 @@ const Todo = () => {
   const handleClickNewButton = () => {
     const newId = calcNewId(contents);
     addContent(newId);
+    setShowEditForm(true);
     setEditingId(newId);
     setText("新規メモ");
-    setShowEditForm(true);
   };
 
   const handleClickUpdateButton = () => {
@@ -61,7 +59,7 @@ const Todo = () => {
               editingId={editingId}
               handleClickDeleteButton={handleClickDeleteButton}
               handleClickUpdateButton={handleClickUpdateButton}
-              content={text}
+              text={text}
               setText={setText}
             />
           )}
