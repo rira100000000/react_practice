@@ -12,7 +12,7 @@ const Todo = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
   const [text, setText] = useState("");
-  const [syncContentsToLocalStorage] = useLocalStorage(contents, setContents);
+  const { syncContentsToLocalStorage } = useLocalStorage(contents, setContents);
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos")) || [];

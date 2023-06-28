@@ -4,7 +4,7 @@ import useLocalStorage from "./useLocalStorage";
 const useSaveButton = (props, id, text, contents) => {
   const { setText, setContents, setEditingId, setShowEditForm } = props;
 
-  const [syncContentsToLocalStorage] = useLocalStorage(contents, setContents);
+  const { syncContentsToLocalStorage } = useLocalStorage(contents, setContents);
 
   const saveData = useCallback(() => {
     setText(text);

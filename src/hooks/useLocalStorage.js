@@ -16,7 +16,7 @@ const useLocalStorage = (contents, setContents) => {
     setContents(newContents);
   };
 
-  return [syncContentsToLocalStorage, getLocalStorageContents];
+  return { syncContentsToLocalStorage, getLocalStorageContents };
 };
 
 export default useLocalStorage;
