@@ -20,8 +20,9 @@ const Todo = () => {
     const newId = calcNewId(contents);
     setShowEditForm(true);
     setEditingId(newId);
-    setText("新規メモ");
-    addContent(newId, text);
+    const initialTitle = "新規メモ";
+    setText(initialTitle);
+    addContent(newId, initialTitle);
   };
 
   const handleClickUpdateButton = () => {
