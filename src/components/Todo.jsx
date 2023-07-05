@@ -3,12 +3,19 @@ import NewButton, { calcNewId } from "./NewButton";
 import ShowButton from "./ShowButton";
 import EditForm from "./EditForm";
 import useContents from "../hooks/useContents";
+import LoginButton from "./LoginButton";
+import { useLogin } from "../hooks/useLogin";
 
 const Todo = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [editingId, setEditingId] = useState("");
   const [text, setText] = useState("");
   const { contents, addContent, updateContent, deleteContent } = useContents();
+  const { isLogin, changeLoginStatus } = useLogin();
+
+  const handleClickLoginButton = () => {
+    changeLoginStatus();
+  };
 
   const handleClickShowButton = (content) => {
     setShowEditForm(true);
@@ -20,8 +27,9 @@ const Todo = () => {
     const newId = calcNewId(contents);
     setShowEditForm(true);
     setEditingId(newId);
-    setText("新規メモ");
-    addContent(newId, text);
+    const initialTitle = "新規メモ";
+    setText(initialTitle);
+    addContent(newId, initialTitle);
   };
 
   const handleClickUpdateButton = () => {
@@ -37,6 +45,10 @@ const Todo = () => {
   return (
     <div className="outerLine">
       <h3>{showEditForm ? "編集" : "一覧"}</h3>
+      <LoginButton
+        isLogin={isLogin}
+        handleClickLoginButton={handleClickLoginButton}
+      ></LoginButton>
       <div className="innerLine">
         <div className="titleArea">
           {contents.map((content) => {
@@ -50,7 +62,7 @@ const Todo = () => {
               </div>
             );
           })}
-          <NewButton handleClickNewButton={handleClickNewButton} />
+          {isLogin && <NewButton handleClickNewButton={handleClickNewButton} />}
         </div>
 
         <div className="contentArea">
