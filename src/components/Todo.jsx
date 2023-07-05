@@ -62,7 +62,7 @@ const Todo = () => {
               </div>
             );
           })}
-          <NewButton handleClickNewButton={handleClickNewButton} />
+          {isLogin && <NewButton handleClickNewButton={handleClickNewButton} />}
         </div>
 
         <div className="contentArea">
