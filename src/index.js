@@ -10,5 +10,5 @@ root.render(
     <LoginProvider>
       <Todo />
     </LoginProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
